@@ -2,8 +2,9 @@
 #include "media.h"
 using namespace std;
 
-Class movies
+class movies
 {
+  movies();
  private:
   char director[81];
   char duration[5];
@@ -12,5 +13,6 @@ Class movies
   void setDir(char in_dir[81]);
   void setDur(char in_dur[5]);
   void setR(float in_r);
+  virtual char* getName();
 }
 

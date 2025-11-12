@@ -11,6 +11,16 @@ Aparajita Baidya
 5) QUIT (get rid of any left over data and end program)
 */
 
+/*
+to do
+  make a virtual fuction in media class for the object name and use that to figure out what to typecast the pointer to be
+  ADD
+  DELETE
+  SEARCH
+  QUIT
+  virtual destructor?
+*/
+
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -24,7 +34,7 @@ using namespace std;
 
 
 //declare functions
-void ADD();
+void ADD(char m[7]);
 void SEARCH();
 void DELETE();
 void QUIT();
@@ -38,8 +48,10 @@ int main()
 
   //note any variables needed
   char input;
+  char media_type[7];
   
   //create vector
+  vector<media*> database;
   
   //main loop
   while (input != 'q')
@@ -82,7 +94,7 @@ int main()
 
 void ADD()
 {
-
+  
 }
 
 

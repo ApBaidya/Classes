@@ -3,8 +3,9 @@
 
 using namespace std;
 
-Class music
+class music
 {
+  music();
  private:
   char artist[81];
   char duration[5];
@@ -16,4 +17,5 @@ Class music
   char getA();
   char getD();
   char getP();
+  virtual char* getName();
 }

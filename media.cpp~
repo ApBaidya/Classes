@@ -1,0 +1,9 @@
+//media file
+#include <cstring>
+using namespace std;
+
+media::media()
+{
+  title[81] = "none";
+  
+}

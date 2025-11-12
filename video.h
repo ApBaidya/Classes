@@ -3,8 +3,9 @@
 
 using namespace std;
 
-Class video
+class video
 {
+  video();
  private:
   char publisher[81];
   float rating;
@@ -13,4 +14,5 @@ Class video
   void setR(float input_r);
   char getP();
   float getR();
+  virtual char* getName();
 }
