@@ -1,4 +1,6 @@
 //media class header - 11.11.2025
+#ifndef VIDEO
+#define VIDEO
 #include "media.h"
 
 using namespace std;
@@ -15,4 +17,6 @@ class video
   char getP();
   float getR();
   virtual char* getName();
-}
+};
+
+#endif // VIDEO

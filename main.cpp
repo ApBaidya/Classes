@@ -1,9 +1,9 @@
 
 /*
+https://www.youtube.com/watch?v=RU5JUHAiR18 <-- understanding header guards
 This is the main code
-?
 Aparajita Baidya
-11.11.2025
+11.16.2025
 1) vector contaning parent class
 2) ADD (any of the child classes-> video games, music, movies)
 3) SEARCH (search by title or year --> list all objects that match)
@@ -49,27 +49,39 @@ int main()
   //note any variables needed
   char input;
   char media_type[7];
-  
   //create vector
   vector<media*> database;
   
   //main loop
   while (input != 'q')
   {
+    music* m = new music();
+    database.push_back(m);
+    for(vector<media*>::iterator it = database.begin(); it != database.end(); ++it)
+      {
+        cout << (*it) -> getName();
+      }
+    
     cout << "Your input: ";
     cin >> input;
     cout << endl;
     cin.ignore(50,'\n');
     cin.clear();
+
     //cout << input << endl;
     if (input == 'a')
     {
-      ADD();
+      cout << "What type of media? (movie, music, video)? ";
+      cin >> media_type;
+      cout << endl;
+      cin.ignore(50, '\n');
+      cin.clear();
+      //ADD(media_type);
     }
 
     else if (input == 's')
     {
-      SEARCH();
+      //SEARCH();
     }
 
     else if (input == 'd')
@@ -92,16 +104,16 @@ int main()
 
 
 
-void ADD()
+void ADD(char m[7])
 {
-  
+
 }
 
 
 
 void SEARCH()
 {
-
+ 
 }
 
 

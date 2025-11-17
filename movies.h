@@ -1,5 +1,8 @@
 //Movies class header file - 11.11.2025
+#ifndef MOVIES
+#define MOVIES
 #include "media.h"
+#include <cstring>
 using namespace std;
 
 class movies
@@ -13,6 +16,10 @@ class movies
   void setDir(char in_dir[81]);
   void setDur(char in_dur[5]);
   void setR(float in_r);
+  char* getDir();
+  char* setDur();
+  float getR();
   virtual char* getName();
-}
+};
 
+#endif // MOVIES

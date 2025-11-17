@@ -1,4 +1,6 @@
-///media class header file - 11.11.2025
+///media class header file - 11.13.2025
+#ifndef MEDIA
+#define MEDIA
 
 #include <cstring>
 
@@ -6,15 +8,18 @@ using namespace std;
 
 class media
 {
-  media();
+ protected:
+  char name[7];
  private:
   char title[81];
   int year;
-  char name[7];
  public:
+  media();
   void setTitle(char input_t[81]);
   void setYear(int input_yr);
-  char getTitle();
+  char* getTitle();
   int getYear();
   virtual char* getName();
-}
+};
+
+#endif // MEDIA
