@@ -13,7 +13,7 @@ Aparajita Baidya
 
 /*
 to do
-  make a virtual fuction in media class for the object name and use that to figure out what to typecast the pointer to be
+  finish classes
   ADD
   DELETE
   SEARCH
@@ -34,8 +34,8 @@ using namespace std;
 
 
 //declare functions
-void ADD(char m[7]);
-void SEARCH();
+void ADD(vector<media*>& d, char m[7]);
+void SEARCH(vector<media*>& d);
 void DELETE();
 void QUIT();
 
@@ -55,19 +55,12 @@ int main()
   //main loop
   while (input != 'q')
   {
-    music* m = new music();
-    database.push_back(m);
-    for(vector<media*>::iterator it = database.begin(); it != database.end(); ++it)
-      {
-        cout << (*it) -> getName();
-      }
-    
     cout << "Your input: ";
     cin >> input;
     cout << endl;
     cin.ignore(50,'\n');
     cin.clear();
-
+    
     //cout << input << endl;
     if (input == 'a')
     {
@@ -76,12 +69,12 @@ int main()
       cout << endl;
       cin.ignore(50, '\n');
       cin.clear();
-      //ADD(media_type);
+      ADD(database, media_type);
     }
 
     else if (input == 's')
     {
-      //SEARCH();
+      SEARCH(database);
     }
 
     else if (input == 'd')
@@ -104,16 +97,117 @@ int main()
 
 
 
-void ADD(char m[7])
+void ADD(vector<media*> &d, char m[7])
 {
+  cout << m;
+  if(strcmp(m, "music") == 0)
+  {
+    cout << "a";
+    music* m = new music();
+    char t[81];
+    cout << "title: ";
+    cin >> t;
+    cin.ignore(50, '\n');
+    cin.clear();  
+    (*m).setTitle(t);
 
+    int yr;
+    cout << "year: ";
+    cin >> yr;
+    (*m).setYear(yr);
+
+    char a[81];
+    cout << "artist: ";
+    cin >> a;
+    cin.ignore(50, '\n');
+    cin.clear();
+    (*m).setArt(a);
+
+    char dur[5];
+    cout << "duration: ";
+    cin >> dur;
+    cin.ignore(50, '\n');
+    cin.clear();
+    (*m).setDur(dur);
+    
+    char pub[81];
+    cout << "publisher: ";
+    cin >> pub;
+    cin.ignore(50, '\n');
+    cin.clear();
+    (*m).setPub(pub);
+    d.push_back(m);
+  }
+  /*
+  else if(strcmp(m, "movies"))
+  {
+  }
+  else if(strcp(m, "video"))
+  {
+  }*/
 }
 
 
 
-void SEARCH()
+void SEARCH(vector<media*>& d)
 {
- 
+  char method = 'n';
+  int year = 0;
+  char in_ti[81];
+  cout << "search by [y]year or [t]title? ";
+  cin >> method;
+  cout << endl;
+  cin.ignore(50,'\n');
+  cin.clear();
+  if(method == 'y')
+  {
+    cout << "year: ";
+    cin >> year;
+    cout << endl;
+    for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)
+    {
+      //cout << "year" << (*it)->getYear();
+      if((*it)->getYear() == year)
+      {
+	cout << 'a';
+	if(strcmp((*it)->getName(), "music") == 0)
+	{
+	  cout << 'b';
+	  cout << "Title: " << ((music*)(*it))->getTitle() << endl;
+	  cout << "Year: " << ((music*)(*it))->getYear() << endl;
+	  cout << "Artist: " << ((music*)(*it))->getA() << endl;
+	  cout << "Duration: " << ((music*)(*it))->getD() << endl;
+	  cout << "Publisher: " << ((music*)(*it))->getP() << endl;
+	}
+      }
+    }
+  }
+  else if(method == 't')
+  {
+    cout << "title: ";
+    cin >> in_ti;
+    cout << endl;
+    cin.ignore(50, '\n');
+    cin.clear();
+    for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)
+    {
+      cout << "title" << (*it)->getTitle();
+      if(strcmp((*it)->getTitle(),in_ti) == 0)
+      {
+        //cout << 'a';
+        if(strcmp((*it)->getName(), "music") == 0)
+        {
+          //cout << 'b';
+          cout << "Title: " << ((music*)(*it))->getTitle() << endl;
+          cout << "Year: " << ((music*)(*it))->getYear() << endl;
+          cout << "Artist: " << ((music*)(*it))->getA() << endl;
+          cout << "Duration: " << ((music*)(*it))->getD() << endl;
+          cout << "Publisher: " << ((music*)(*it))->getP() << endl;
+        }
+      }
+    }
+
+  }
 }
 
 
