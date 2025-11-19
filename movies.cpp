@@ -1,27 +1,32 @@
-//11.13.2025
+//11.19.2025
 #include "media.h"
+#include "movies.h"
 #include <cstring>
 using namespace std;
 
 movies::movies()
 {
-  director[81] = "none";
-  duration[5] = "none";
+  name = new char[7];//delete only works on these 'new' fellows
+  strcpy(name, "movies");
+  director = new char[81];
+  duration = new char[5];
   rating = 0;
-  title = "movies"; 
 }
-
-movies::setDir(char in_dir[81])
+movies::~movies()//eradication
 {
-  title[0] = '\0';
-  strcpy(director, in_dir);
+  delete director;
+  delete duration;
 }
-movies::setDur(char in_dur[5])
+//sets and gets over here
+void movies::setDir(char in_dir[81])
 {
-  title[0] = '\0';
+  strcpy(director, in_dir);//then set it
+}
+void movies::setDur(char in_dur[5])
+{
   strcpy(duration, in_dur);
 }
-movies::setR(float in_r)
+void movies::setR(float in_r)
 {
   rating = in_r;
 }
@@ -38,7 +43,4 @@ float movies::getR()
 {
   return rating;
 }
-char* movies::getName()
-{
-  return title;
-}
+

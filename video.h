@@ -1,22 +1,22 @@
-//media class header - 11.11.2025
+//media class header - 11.19.2025
 #ifndef VIDEO
 #define VIDEO
 #include "media.h"
-
+#include <cstring>
 using namespace std;
 
-class video
+class video : public media
 {
-  video();
  private:
-  char publisher[81];
+  char* publisher;
   float rating;
  public:
-  void setP(char input_p[81]);
+  video();//hello m a k e r
+  ~video();//hello destructor
+  void setP(char input_p[81]);//get and set functions here
   void setR(float input_r);
-  char getP();
+  char* getP();
   float getR();
-  virtual char* getName();
 };
 
 #endif // VIDEO

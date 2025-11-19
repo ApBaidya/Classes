@@ -1,9 +1,8 @@
-
 /*
 https://www.youtube.com/watch?v=RU5JUHAiR18 <-- understanding header guards
 This is the main code
 Aparajita Baidya
-11.16.2025
+11.19.2025
 1) vector contaning parent class
 2) ADD (any of the child classes-> video games, music, movies)
 3) SEARCH (search by title or year --> list all objects that match)
@@ -36,7 +35,7 @@ using namespace std;
 //declare functions
 void ADD(vector<media*>& d, char m[7]);
 void SEARCH(vector<media*>& d);
-void DELETE();
+void DELETE(vector<media*>& d);
 void QUIT();
 
 
@@ -55,6 +54,7 @@ int main()
   //main loop
   while (input != 'q')
   {
+    //what method to use
     cout << "Your input: ";
     cin >> input;
     cout << endl;
@@ -64,7 +64,8 @@ int main()
     //cout << input << endl;
     if (input == 'a')
     {
-      cout << "What type of media? (movie, music, video)? ";
+      //get media type to type cast them pointers
+      cout << "What type of media? (movies, music, video (just type video for video game))? ";
       cin >> media_type;
       cout << endl;
       cin.ignore(50, '\n');
@@ -79,7 +80,7 @@ int main()
 
     else if (input == 'd')
     {
-      DELETE();
+      DELETE(database);
     }
 
     else if (input == 'q')
@@ -99,24 +100,25 @@ int main()
 
 void ADD(vector<media*> &d, char m[7])
 {
-  cout << m;
+  //cout << m;
   if(strcmp(m, "music") == 0)
   {
-    cout << "a";
-    music* m = new music();
-    char t[81];
+    //set the specifics for music
+    music* m = new music();//make new music object
+    char t[81];//just a little temporary fellow
+
     cout << "title: ";
     cin >> t;
     cin.ignore(50, '\n');
     cin.clear();  
-    (*m).setTitle(t);
+    (*m).setTitle(t);//use the set function (same pattern for everything in this function)
 
     int yr;
     cout << "year: ";
     cin >> yr;
     (*m).setYear(yr);
 
-    char a[81];
+    char a[81];//each one of these sections has a year and title, and then the specific parameters the object takes
     cout << "artist: ";
     cin >> a;
     cin.ignore(50, '\n');
@@ -138,19 +140,79 @@ void ADD(vector<media*> &d, char m[7])
     (*m).setPub(pub);
     d.push_back(m);
   }
-  /*
-  else if(strcmp(m, "movies"))
+  
+  else if(strcmp(m, "movies")==0)
   {
+    movies* m = new movies();
+    char t[81];
+
+    cout << "title: ";
+    cin >> t;
+    cin.ignore(50, '\n');
+    cin.clear();
+    (*m).setTitle(t);
+
+    int yr;
+    cout << "year: ";
+    cin >> yr;
+    (*m).setYear(yr);
+
+    char dir[81];
+    cout<<"director: ";
+    cin>>dir;
+    cin.ignore(50, '\n');
+    cin.clear();
+    (*m).setDir(dir);
+
+    char dur[5];
+    cout<<"duration: ";
+    cin>>dur;
+    cin.ignore(50,'\n');
+    cin.clear();
+    (*m).setDur(dur);
+
+    float r;
+    cout << "rating: ";
+    cin>>r;
+    (*m).setR(r);
+    d.push_back(m);
   }
-  else if(strcp(m, "video"))
-  {
-  }*/
+  else if(strcmp(m, "video") == 0)
+  {   
+    video* v = new video();
+    char t[81];
+    
+    cout << "title: ";
+    cin >> t;
+    cin.ignore(50, '\n');
+    cin.clear();
+    (*v).setTitle(t);
+
+    int yr;
+    cout << "year: ";
+    cin >> yr;
+    (*v).setYear(yr);
+
+    char pub[81];
+    cout<<"publisher: ";
+    cin>>pub;
+    cin.ignore(50, '\n');
+    cin.clear();
+    (*v).setP(pub);
+
+    float r;
+    cout<<"rating: ";
+    cin>>r;
+    (*v).setR(r);
+    d.push_back(v);
+  }
 }
 
 
 
 void SEARCH(vector<media*>& d)
 {
+  //some temporary friends here
   char method = 'n';
   int year = 0;
   char in_ti[81];
@@ -159,26 +221,39 @@ void SEARCH(vector<media*>& d)
   cout << endl;
   cin.ignore(50,'\n');
   cin.clear();
-  if(method == 'y')
+  if(method == 'y')//search by year
   {
     cout << "year: ";
-    cin >> year;
+    cin >> year;//get the year
     cout << endl;
-    for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)
+    for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)//iterate
     {
       //cout << "year" << (*it)->getYear();
-      if((*it)->getYear() == year)
-      {
-	cout << 'a';
-	if(strcmp((*it)->getName(), "music") == 0)
+      if((*it)->getYear() == year)//if the object's year equals the desired one
+	if(strcmp((*it)->getName(), "music") == 0)//checking the object's name
 	{
-	  cout << 'b';
-	  cout << "Title: " << ((music*)(*it))->getTitle() << endl;
+	  cout << "Title: " << ((music*)(*it))->getTitle() << endl;//after finding name, cast the pointers to get the specific functions (everything in this function follows this pattern)
 	  cout << "Year: " << ((music*)(*it))->getYear() << endl;
 	  cout << "Artist: " << ((music*)(*it))->getA() << endl;
 	  cout << "Duration: " << ((music*)(*it))->getD() << endl;
 	  cout << "Publisher: " << ((music*)(*it))->getP() << endl;
 	}
+	else if(strcmp((*it)->getName(), "movies") == 0)
+	{
+	  cout << "Title: " << ((movies*)(*it))->getTitle()<<endl;
+	  cout << "Year: " << ((movies*)(*it))->getYear()<<endl;
+	  cout<<"Director: "<<((movies*)(*it))->getDir()<<endl;
+	  cout<<"Duration: "<<((movies*)(*it))->getDur()<<endl;
+	  cout<<"Rating: "<<((movies*)(*it))->getR()<<endl;
+	}
+	else if(strcmp((*it)->getName(), "video") == 0)
+	{
+	  cout << "Title: " << ((video*)(*it))->getTitle()<<endl;
+	  cout << "Year: " << ((video*)(*it))->getYear()<<endl;
+	  cout << "Publisher: " << ((video*)(*it))->getP()<<endl;
+	  cout << "Rating: " << ((video*)(*it))->getR()<<endl;
+	}
+	cout<<endl;
       }
     }
   }
@@ -191,33 +266,153 @@ void SEARCH(vector<media*>& d)
     cin.clear();
     for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)
     {
-      cout << "title" << (*it)->getTitle();
+      //cout << "title" << (*it)->getTitle();
       if(strcmp((*it)->getTitle(),in_ti) == 0)
       {
-        //cout << 'a';
         if(strcmp((*it)->getName(), "music") == 0)
         {
-          //cout << 'b';
           cout << "Title: " << ((music*)(*it))->getTitle() << endl;
           cout << "Year: " << ((music*)(*it))->getYear() << endl;
           cout << "Artist: " << ((music*)(*it))->getA() << endl;
           cout << "Duration: " << ((music*)(*it))->getD() << endl;
           cout << "Publisher: " << ((music*)(*it))->getP() << endl;
         }
+	else if(strcmp((*it)->getName(), "movies") == 0)
+	{
+          cout << "Title: " << ((movies*)(*it))->getTitle()<<endl;
+          cout << "Year: " << ((movies*)(*it))->getYear()<<endl;
+          cout<<"Director: "<<((movies*)(*it))->getDir()<<endl;
+          cout<<"Duration: "<<((movies*)(*it))->getDur()<<endl;
+          cout<<"Rating: "<<((movies*)(*it))->getR()<<endl;
+        }
+        else if(strcmp((*it)->getName(), "video") == 0)
+        {
+          cout << "Title: " << ((video*)(*it))->getTitle()<<endl;
+          cout << "Year: " << ((video*)(*it))->getYear()<<endl;
+          cout << "Publisher: " << ((video*)(*it))->getP()<<endl;
+          cout << "Rating: " << ((video*)(*it))->getR()<<endl;
+        }
+	cout<<endl;
       }
     }
-
   }
 }
 
 
 
-void DELETE()
+void DELETE(vector<media*>& d)
 {
-
+  char method;
+  char del;
+  int yr;
+  char in_t[81];
+  cout<<"search by [y]year or [t]title: ";
+  cin>>method;
+  cin.ignore(50, '\n');
+  cin.clear();
+  if(method == 'y')
+  {
+    cout<<"year: ";//ask for year
+    cin>>yr;
+    cout<<endl;
+    for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)
+    {
+      //cout<<"aaaa";
+      if((*it)->getYear() == yr)
+      {
+	cout << "found it!"<<endl;
+        if(strcmp((*it)->getName(), "music") == 0)//cout detail according to object type
+	{
+          //this is pretty much what the search function does as well
+          cout << "Title: " << ((music*)(*it))->getTitle() << endl;
+          cout << "Year: " << ((music*)(*it))->getYear() << endl;
+          cout << "Artist: " << ((music*)(*it))->getA() << endl;
+          cout << "Duration: " << ((music*)(*it))->getD() << endl;
+          cout << "Publisher: " << ((music*)(*it))->getP() << endl;
+        }
+        else if(strcmp((*it)->getName(), "movies") == 0)
+        {
+          cout << "Title: " << ((movies*)(*it))->getTitle()<<endl;
+          cout << "Year: " << ((movies*)(*it))->getYear()<<endl;
+          cout<<"Director: "<<((movies*)(*it))->getDir()<<endl;
+          cout<<"Duration: "<<((movies*)(*it))->getDur()<<endl;
+          cout<<"Rating: "<<((movies*)(*it))->getR()<<endl;
+        }
+        else if(strcmp((*it)->getName(), "video") == 0)
+        {
+          cout << "Title: " << ((video*)(*it))->getTitle()<<endl;
+          cout << "Year: " << ((video*)(*it))->getYear()<<endl;
+          cout << "Publisher: " << ((video*)(*it))->getP()<<endl;
+          cout << "Rating: " << ((video*)(*it))->getR()<<endl;
+        }
+        cout<<endl;
+	cout<<"do you want to delete this(y/n)? ";
+	cin>>del;
+	cin.ignore(50, '\n');
+	cin.clear();
+	//ask if they want to delete the object: if y, delete. Else if n, skip it
+	if(del=='y')
+	{
+	  delete *it;//if they wanna delete something
+	  d.erase(it);//delete the object and pointer
+	  return;//then LEAVE...
+	}
+      }
+    }
+  }
+  else if(method == 't')
+  {
+    cout<<"title: ";//ask for title
+    cin>>in_t;
+    cout<<endl;
+    cin.ignore(50,'\n');
+    cin.clear();
+    for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)
+    {
+      //cout<<"aaaa";
+      if(strcmp((*it)->getTitle(), in_t)==0)
+      {
+	cout << "found it!"<<endl;
+	if(strcmp((*it)->getName(), "music") == 0)
+        {
+          //the same code as the other way to delete
+          cout << "Title: " << ((music*)(*it))->getTitle() << endl;
+          cout << "Year: " << ((music*)(*it))->getYear() << endl;
+          cout << "Artist: " << ((music*)(*it))->getA() << endl;
+          cout << "Duration: " << ((music*)(*it))->getD() << endl;
+          cout << "Publisher: " << ((music*)(*it))->getP() << endl;
+        }
+        else if(strcmp((*it)->getName(), "movies") == 0)
+        {
+          cout << "Title: " << ((movies*)(*it))->getTitle()<<endl;
+          cout << "Year: " << ((movies*)(*it))->getYear()<<endl;
+          cout<<"Director: "<<((movies*)(*it))->getDir()<<endl;
+          cout<<"Duration: "<<((movies*)(*it))->getDur()<<endl;
+          cout<<"Rating: "<<((movies*)(*it))->getR()<<endl;
+        }
+        else if(strcmp((*it)->getName(), "video") == 0)
+        {
+          cout << "Title: " << ((video*)(*it))->getTitle()<<endl;
+          cout << "Year: " << ((video*)(*it))->getYear()<<endl;
+          cout << "Publisher: " << ((video*)(*it))->getP()<<endl;
+          cout << "Rating: " << ((video*)(*it))->getR()<<endl;
+        }
+	cout<<endl;
+        cout<<"do you want to delete this(y/n)? ";
+        cin>>del;
+        cin.ignore(50, '\n');
+        cin.clear();
+        //ask if they want to delete the object: if y, delete. Else if n, skip it
+        if(del=='y')
+        {
+          delete *it;//if they wanna delete something
+          d.erase(it);//delete the object and pointer
+          return;//then LEAVE...
+        }
+      }
+    }
+  }
 }
-
-
 
 void QUIT()
 {

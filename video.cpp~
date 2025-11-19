@@ -1,0 +1,36 @@
+//11.17.2025
+#include "media.h"
+#include <cstring>
+#include "video.h"
+
+using namespace std;
+
+video::video()
+{
+  strcpy(name, "video");//I wanted to change name, and set a base val for publisher, so I decided to use strcpy, which seems to work?
+  strcpy(publisher, "none");
+  rating = 0;
+}
+video::~video()//hello again, destructor
+{
+  delete publisher;
+  delete rating;
+}
+
+void video::setP(char input_p[81])
+{
+  strcpy(publisher, input_p);
+}
+void video::setR(float input_r)
+{
+  rating = input_r;
+}
+
+char* video::getP()
+{
+  return publisher;
+}
+float video::getR()
+{
+  return rating;
+}
