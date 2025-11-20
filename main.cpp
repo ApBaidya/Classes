@@ -36,7 +36,7 @@ using namespace std;
 void ADD(vector<media*>& d, char m[7]);
 void SEARCH(vector<media*>& d);
 void DELETE(vector<media*>& d);
-void QUIT();
+void QUIT(vector<media*>& d);
 
 
 
@@ -85,7 +85,7 @@ int main()
 
     else if (input == 'q')
     {
-      QUIT();
+      QUIT(database);
     }
 
     else
@@ -93,6 +93,7 @@ int main()
       cout << "Enter a valid input." << endl;
     }
   }
+  cout<<"bye"<<endl;
   return 0;
 }
 
@@ -256,7 +257,6 @@ void SEARCH(vector<media*>& d)
 	cout<<endl;
       }
     }
-  }
   else if(method == 't')
   {
     cout << "title: ";
@@ -414,7 +414,11 @@ void DELETE(vector<media*>& d)
   }
 }
 
-void QUIT()
+void QUIT(vector<media*>& d)
 {
-
+  for(vector<media*>::iterator it = d.begin(); it != d.end(); ++it)
+  {
+    delete *it;//DELETE EVERY OBJECT (their pointers still remain...)
+  }
+  d.clear();//the end.
 }
