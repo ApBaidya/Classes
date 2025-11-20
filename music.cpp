@@ -13,9 +13,9 @@ music::music()
 }
 music::~music()
 {
-  delete artist;
-  delete duration;
-  delete publisher;
+  delete[] artist;
+  delete[] duration;
+  delete[] publisher;
 }
 
 void music::setArt(char in_a[81])

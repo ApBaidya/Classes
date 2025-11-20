@@ -14,8 +14,8 @@ media::media()//life
 }
 media::~media()//death.
 {
-  delete title;
-  delete name;
+  delete[] title;
+  delete[] name;
 }
 //set. Get. 
 void media::setTitle(char input_t[81])

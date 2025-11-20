@@ -14,7 +14,7 @@ video::video()
 }
 video::~video()//hello again, destructor
 {
-  delete publisher;
+  delete[] publisher;
 }
 
 void video::setP(char input_p[81])

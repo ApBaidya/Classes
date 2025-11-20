@@ -14,8 +14,8 @@ movies::movies()
 }
 movies::~movies()//eradication
 {
-  delete director;
-  delete duration;
+  delete[] director;
+  delete[] duration;
 }
 //sets and gets over here
 void movies::setDir(char in_dir[81])
